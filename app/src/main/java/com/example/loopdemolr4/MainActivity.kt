@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.loopdemolr4.ui.theme.LoopDemoLR4Theme
+import kotlin.math.abs
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +41,14 @@ class MainActivity : ComponentActivity() {
 }
 
 fun calculateLoop(n: Int, a: Double): Double {
-    return 1.0
+    var term = 1.0/a
+    var sum = term
+
+    for (k in 1..n) {
+        term /= (a+k)
+        sum += term
+    }
+    return sum
 }
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
@@ -80,9 +88,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 val n = valueN.toIntOrNull()
                 val a = valueA.replace(',', '.').toDoubleOrNull()
                 if (a == null) {
-                    inputError = "Введите корректное число а"
-                } else if (n == null || n < 1) {
-                    inputError = "Введите корректное число n"
+                    inputError = "Введите корректное число а!"
+                } else if (abs(a) < 1e-12) {
+                    inputError = "Число a не может быть равно 0!"
+                }
+                else if (n == null || n < 1) {
+                    inputError = "Введите корректное число n!"
                 } else {
                     result = calculateLoop(n, a)
                 }
