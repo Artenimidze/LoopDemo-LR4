@@ -63,6 +63,8 @@ fun MainScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(12.dp)
 
     ) {
+        Text("Калькулятор суммы рядов",
+            style = MaterialTheme.typography.titleLarge)
         Text("Введите натуральное число n и действительное число a",
             style = MaterialTheme.typography.bodyLarge)
         OutlinedTextField(
